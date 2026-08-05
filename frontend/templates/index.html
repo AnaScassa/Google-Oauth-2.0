@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login com Google</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <div class="login-card">
+        <div class="login-brand">
+          <div class="brand-icon">G</div>
+          <div>
+            <p class="brand-title">Minha App</p>
+            <p class="brand-subtitle">Login seguro com Google OAuth 2.0</p>
+          </div>
+        </div>
+
+        <h1>Entrar com o Google</h1>
+        <p class="login-description">
+          Acesse sua conta de forma rápida e segura. Ao clicar no botão, você será
+          redirecionado para a autenticação do Google.
+        </p>
+
+        <a class="google-button" href="https://127.0.0.1:8081/auth/login">
+          <span class="google-icon" aria-hidden="true">
+            <svg viewBox="0 0 533.5 544.3" xmlns="http://www.w3.org/2000/svg">
+              <path fill="#4285F4" d="M533.5 278.4c0-17.6-1.6-34.4-4.7-50.8H272.1v96.3h146.6c-6.3 34-25.2 62.8-53.8 82v68.2h86.8c50.8-46.7 80.8-115.8 80.8-195.7z"/>
+              <path fill="#34A853" d="M272.1 544.3c72.9 0 134.2-24.2 178.9-65.6l-86.8-68.2c-24.2 16.2-55 25.8-92.1 25.8-70.8 0-130.8-47.8-152.3-112.1H32.2v70.5c44.6 88.3 136.2 149.6 239.9 149。6z"/>
+              <path fill="#FBBC05" d="M119。8 322。1c-10。7-32。1-10。7-66。6 0-98。7V153h-87。6C6。6 206。5 0 241。9 0 278。4s6。6 71。9 32。2 125。4l87。6-81。7z"/>
+              <path fill="#EA4335" d="M272.1 109.1c39.8 0 75.5 13.7 103.7 40.7l77.7-77.7C406.3 24.5 345 0 272.1 0 168.5 0 76.9 61.3 32.2 149.6l87.6 70.5c21.5-64.3 81.5-112.1 152.3-112.1z"/>
+            </svg>
+          </span>
+          Entrar com Google
+        </a>
+
+        <p class="login-note">
+          Não armazenamos sua senha. O acesso será concedido apenas com a conta
+          Google que você escolher.
+        </p>
+      </div>
+    </div>
+  </body>
+</html>

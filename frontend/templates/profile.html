@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Perfil do Usuário</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <div class="login-card">
+        <div class="login-brand">
+          <div class="brand-icon">G</div>
+          <div>
+            <p class="brand-title">Minha App</p>
+            <p class="brand-subtitle">Perfil do usuário autenticado</p>
+          </div>
+        </div>
+
+        <h1>Bem-vindo</h1>
+        <p class="login-description">Veja os dados da conta que entrou via Google.</p>
+
+        <div class="profile-fields">
+          <p><strong>Nome:</strong> {{ user_info.name }}</p>
+          <p><strong>Email:</strong> {{ user_info.email }}</p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
