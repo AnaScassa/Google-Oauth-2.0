@@ -11,9 +11,9 @@ def profile() -> str:
     return render_template("profile.html", user_info={"name": "Nome do Usuário", "email": "email@dominio.com"})
 
 @app.route("/login/google", methods=["GET"])
-def login_google() -> str:
-    return redirect("https://accounts.google.com/o/oauth2/auth")
+def login_google():
+    return redirect("https://localhost:8081/auth/login")
 
 if __name__ == "__main__":
-    app.run(port=8080, debug=True, ssl_context="adhoc")
+    app.run(host="0.0.0.0", port=8080, debug=True, ssl_context="adhoc")
     #porta que o arquivo vai rodar, debug para atualizar automaticamente e ssl_context para rodar com https

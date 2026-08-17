@@ -12,12 +12,10 @@ server = Flask(__name__)
 # Em produção, configure isso como variável de ambiente segura.
 server.secret_key = os.environ.get("FLASK_SECRET_KEY", "dev_secret_key")
 
-# As credenciais do Google OAuth devem vir do ambiente.
-# Assim você evita deixar client_id/client_secret no código fonte.
-GOOGLE_CLIENT_ID = os.environ.get("GOOGLE_CLIENT_ID")
-GOOGLE_SECRET = os.environ.get("GOOGLE_SECRET")
+#em uma aplicação séria nao pode deixar essas chaves a mostra!
+GOOGLE_CLIENT_ID = "a"
+GOOGLE_SECRET = "a"
 
-# O cliente WebApplicationClient encapsula o fluxo OAuth2.
 client = WebApplicationClient(client_id=GOOGLE_CLIENT_ID)
 
 # Estrutura simples para armazenar os endpoints do Google.
@@ -87,10 +85,19 @@ def callback() -> Response:
         data=body,
         auth=(GOOGLE_CLIENT_ID, GOOGLE_SECRET),
     )
+
+    print("STATUS:", token_response.status_code)
+    print("RESPOSTA GOOGLE:", token_response.text)
+
     token_response.raise_for_status()
 
-    # Lê o token de acesso enviado pelo Google.
     client.parse_request_body_response(token_response.text)
+
+    print("TOKEN:", client.access_token)
+
+    # Lê o token de acesso enviado pelo Google.
+    uri, headers, body = client.add_token(hosts.userinfo_endpoint)
+    userinfo_response = requests.get(uri, headers=headers, data=body)
 
     # Usa o token de acesso para buscar dados do usuário.
     uri, headers, body = client.add_token(hosts.userinfo_endpoint)
@@ -120,5 +127,5 @@ def profile() -> Response:
 
 if __name__ == "__main__":
     # Roda o servidor Flask em HTTPS local.
-    server.run(port=8081, debug=True, ssl_context="adhoc")
+    server.run(host="0.0.0.0", port=8081, debug=True, ssl_context="adhoc")
     
