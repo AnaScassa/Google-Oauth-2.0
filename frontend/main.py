@@ -10,9 +10,5 @@ def index() -> str:
 def profile() -> str:
     return render_template("profile.html", user_info={"name": "Nome do Usuário", "email": "email@dominio.com"})
 
-@app.route("/login/google", methods=["GET"])
-def login_google():
-    return redirect("/auth/login")
-
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8080, debug=True, ssl_context="adhoc")
