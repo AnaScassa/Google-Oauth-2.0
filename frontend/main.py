@@ -12,8 +12,7 @@ def profile() -> str:
 
 @app.route("/login/google", methods=["GET"])
 def login_google():
-    return redirect("https://localhost:8081/auth/login")
+    return redirect("/auth/login")
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8080, debug=True, ssl_context="adhoc")
-    #porta que o arquivo vai rodar, debug para atualizar automaticamente e ssl_context para rodar com https

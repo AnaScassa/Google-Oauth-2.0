@@ -36,11 +36,8 @@ def get_google_oauth_hosts() -> GoogleHosts:
     data = hosts.json()
 
     # Esses valores vêm do Google e dizem onde enviar cada requisição.
-    return GoogleHosts(
-        autorization_endpoint=data.get('authorization_endpoint'),
-        token_endpoint=data.get('token_endpoint'),
-        userinfo_endpoint=data.get('userinfo_endpoint'),
-        certs=data.get('jwks_uri')
+    return GoogleHosts(autorization_endpoint=data.get('authorization_endpoint'), token_endpoint=data.get('token_endpoint'), 
+        userinfo_endpoint=data.get('userinfo_endpoint'), certs=data.get('jwks_uri')
     )
 
 
@@ -51,10 +48,8 @@ def login() -> Response:
 
     # Monta a URL de autorização usando o endpoint do Google.
     # O usuário será enviado ao Google para conceder permissão.
-    authorization_url = client.prepare_request_uri(
-        hosts.autorization_endpoint,
-        redirect_uri=url_for('callback', _external=True),
-        scope=["openid", "email", "profile"]
+    authorization_url = client.prepare_request_uri(hosts.autorization_endpoint, 
+        redirect_uri=url_for('callback', _external=True), scope=["openid", "email", "profile"]
     )
 
     # Retorna um redirect para o Google.
@@ -70,21 +65,12 @@ def callback() -> Response:
         return Response('Missing authorization code', status=400)
 
     # Prepara a requisição de troca de código por token.
-    token_url, headers, body = client.prepare_token_request(
-        hosts.token_endpoint,
-        authorization_response=request.url,
-        redirect_url=url_for('callback', _external=True),
-        code=code,
-        client_secret=GOOGLE_SECRET
+    token_url, headers, body = client.prepare_token_request(hosts.token_endpoint, authorization_response=request.url,
+        redirect_url=url_for('callback', _external=True), code=code, client_secret=GOOGLE_SECRET
     )
 
     # Envia o POST para o endpoint de token do Google.
-    token_response = requests.post(
-        token_url,
-        headers=headers,
-        data=body,
-        auth=(GOOGLE_CLIENT_ID, GOOGLE_SECRET),
-    )
+    token_response = requests.post(token_url, headers=headers, data=body, auth=(GOOGLE_CLIENT_ID, GOOGLE_SECRET))
 
     print("STATUS:", token_response.status_code)
     print("RESPOSTA GOOGLE:", token_response.text)
