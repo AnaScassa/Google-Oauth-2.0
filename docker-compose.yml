@@ -15,6 +15,10 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8081:8081"
+    depends_on:
+      - postgres
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/googleoauth
     networks:
       - proxy
 
@@ -31,6 +35,8 @@ services:
     image: apache/apisix:latest
     depends_on:
       - etcd
+      - backend
+      - frontend
     ports:
       - "9080:9080"
       - "9180:9180"
@@ -38,6 +44,24 @@ services:
       - ./apisix_conf/config.yaml:/usr/local/apisix/conf/config.yaml
     networks:
       - proxy
+
+  postgres:
+    image: postgres:17
+    container_name: googleoauth-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: googleoauth
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - proxy
+
+volumes:
+  postgres_data:
 
 networks:
   proxy:
