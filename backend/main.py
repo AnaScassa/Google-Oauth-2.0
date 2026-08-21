@@ -45,12 +45,7 @@ def profile():
 
     if not user:
 
-        user = User(
-            google_id=google_id,
-            email=email,
-            name=name,
-            picture=picture
-        )
+        user = User(google_id=google_id, email=email, name=name, picture=picture)
 
         db.session.add(user)
         db.session.commit()
@@ -62,6 +57,7 @@ def profile():
         mensagem = "Usuário já estava cadastrado."
 
     return jsonify({
+        "user-info": userinfo,
         "message": mensagem,
         "user": {
             "id": user.id,
